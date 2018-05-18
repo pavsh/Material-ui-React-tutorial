@@ -1,7 +1,20 @@
 import React from "react";
-
-export default props => (
-  <div>
-    <h1>Footer </h1>
-  </div>
+import {Tabs,Paper} from "material-ui"
+import {Tab} from "material-ui/Tabs"
+export default ({muscles}) => (
+  <Paper >
+    <Tabs
+      value={0}
+     
+      indicatorColor="primary"
+      textColor="primary"
+      centered
+    >
+      <Tab label="All" />
+    {muscles.map(group=>
+        <Tab label= {group} />
+    )}
+     
+    </Tabs>
+  </Paper>
 );
