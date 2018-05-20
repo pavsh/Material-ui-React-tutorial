@@ -11,20 +11,25 @@ export default class extends Component {
     exercises
   }
   getExercisesByMuscles(){
-    return this.state.exercises.reduce((exercises,exercise)=>{
-    const {muscles} = exercise
-    exercises[muscles] = exercises[muscles] 
-    ? [...exercises[muscles], exercise]
-    : [exercise]
-    return exercises
-    },{})
-  }
+    return Object.entries(
+      this.state.exercises.reduce((exercises,exercise)=>{
+      const {muscles} = exercise
+      exercises[muscles] = exercises[muscles] 
+      ? [...exercises[muscles], exercise]
+      : [exercise]
+      return exercises
+      },{})
+    )
+    }
   render() {
-    console.log(this.getExercisesByMuscles())
+    const orderedbymusclesexercises= this.getExercisesByMuscles()
+    console.log(orderedbymusclesexercises)
     return (
       <Fragment>
         <Header />
-        <Exercises/>
+        <Exercises 
+        exercises={orderedbymusclesexercises}
+        />
         <Footer 
         muscles={muscles}/>
       </Fragment>
