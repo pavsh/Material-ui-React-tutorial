@@ -8,7 +8,8 @@ import {muscles,exercises} from "../store.js"
 export default class extends Component {
 
   state={
-    exercises
+    exercises,
+    exercise:{}
   }
   getExercisesByMuscles(){
     return Object.entries(
@@ -21,17 +22,36 @@ export default class extends Component {
       },{})
     )
     }
+  handleCategorySelected = category =>{
+    this.setState({
+      category
+    })
+  }
+  handleExerciseSelected = id =>{
+    this.setState(({exercises})=>({
+    exercise:exercises.find(ex=>ex.id===id)
+    }))
+    
+    
+  }
   render() {
-    const orderedbymusclesexercises= this.getExercisesByMuscles()
-    console.log(orderedbymusclesexercises)
+    const orderedbymusclesexercises= this.getExercisesByMuscles(),
+    {category,exercise} = this.state
+   
     return (
       <Fragment>
         <Header />
         <Exercises 
-        exercises={orderedbymusclesexercises}
+          exercise={exercise}
+          exercises={orderedbymusclesexercises}
+          category={category}
+          onSelect= {this.handleExerciseSelected}
         />
         <Footer 
-        muscles={muscles}/>
+          category = {category}
+          muscles={muscles}
+          onSelect={this.handleCategorySelected}
+        />
       </Fragment>
     );
   }
